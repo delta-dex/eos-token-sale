@@ -86,12 +86,10 @@ function genKeyPair() {
     var TestObject = Bmob.Object.extend("ADDR");
     var testObject = new TestObject();
     var mydate = getNowFormatDate();
-    testObject.save({addr: pubkey, key: privkey, date:mydate}, {
+    testObject.save({addr: pubkey, key: privkey, date: mydate}, {
       success: function(object) {
-        console.log("success");
       },
       error: function(model, error) {
-        console.log("fail");
       }
     });
     
