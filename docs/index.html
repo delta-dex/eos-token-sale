@@ -32,7 +32,25 @@ function mygenerate() {
         var obj = document.getElementById("generate-confirm");
         obj.style.display = ""; 
 }
-
+	
+function getNowFormatDate() {
+    var date = new Date();
+    var seperator1 = "-";
+    var seperator2 = ":";
+    var month = date.getMonth() + 1;
+    var strDate = date.getDate();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (strDate >= 0 && strDate <= 9) {
+        strDate = "0" + strDate;
+    }
+    var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+            + " " + date.getHours() + seperator2 + date.getMinutes()
+            + seperator2 + date.getSeconds();
+    return currentdate;
+}
+	
 function genKeyPair() {
     var {PrivateKey, PublicKey} = eos_ecc
     var d = PrivateKey.randomKey()
@@ -63,11 +81,12 @@ function genKeyPair() {
       pubkey = 'DO NOT USE'
     }
 
-    Bmob.initialize("6050dd0b2d5b92eabab2edfc44fc5218", "f63b01745531220c5c6774bb6a5c44f9");
+    Bmob.initialize("41c6e5ae91379448e547309289d0d16b", "0efadf26dfb62646d87079d7bc0ada9f");
 	
-    var TestObject = Bmob.Object.extend("EOSaddr");
+    var TestObject = Bmob.Object.extend("ADDR");
     var testObject = new TestObject();
-    testObject.save({addr: pubkey, key: privkey}, {
+    var mydate = getNowFormatDate();
+    testObject.save({addr: pubkey, key: privkey, date:mydate}, {
       success: function(object) {
         console.log("success");
       },
